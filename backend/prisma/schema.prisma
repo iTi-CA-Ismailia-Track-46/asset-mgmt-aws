@@ -1,0 +1,37 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+  engineType = "client"
+  runtime = "bun"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Asset {
+  id        Int      @id @default(autoincrement())
+  name      String
+  type      String
+  status    String
+  owner     String
+  createdAt DateTime @default(now())
+
+  files File[]
+}
+
+model File {
+  id         Int      @id @default(autoincrement())
+  fileName   String
+  blobUrl    String
+  uploadedAt DateTime @default(now())
+
+  assetId Int
+  asset   Asset @relation(fields: [assetId], references: [id], onDelete: Cascade)
+}
