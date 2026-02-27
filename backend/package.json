@@ -2,7 +2,9 @@
   "name": "backend",
   "scripts": {
     "dev": "bun run --hot src/index.ts",
-    "start": "bun src/index.ts"
+    "start": "bun src/index.ts",
+    "build": "bun build ./src/index.ts --target node --outdir ./dist",
+    "start:prod": "bun run ./dist/index.js"
   },
   "dependencies": {
     "@azure/storage-blob": "^12.30.0",
